@@ -40,21 +40,22 @@ app.get('/', async (req, res) => {
     console.log('Request:', req.query);
     const text = req.query.text;
     const font = req.query.font ?? "ackaisyo.ttf";
-    
+
     if (!text) {
         return res.status(400).send('Missing text parameter');
     }
-    
+
     const cacheFilePath = getCacheFilePath(text, font);
 
     // 既存のキャッシュがある場合はそれを返す
     if (fs.existsSync(cacheFilePath)) {
         console.log('Cache hit:', cacheFilePath);
-        return res.sendFile(cacheFilePath);
+        return res.sendFile(path.resolve(cacheFilePath));  // 修正: 絶対パスを指定
     }
 
+
     console.log('Cache miss:', cacheFilePath);
-    
+
     try {
         const buffer = await fetchImage(text, font);
 
