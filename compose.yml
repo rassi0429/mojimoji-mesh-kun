@@ -2,6 +2,6 @@ services:
   web:
     image: ghcr.io/rassi0429/mojimoji-mesh-kun:latest
     ports:
-      - "3034:8000"
+      - "3034:3000"
   blender:
     image: ghcr.io/rassi0429/docker-blender-for-mojimoji:latest
